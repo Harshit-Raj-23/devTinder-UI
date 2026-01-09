@@ -22,7 +22,7 @@ const Login = () => {
       dispatch(addUser(res?.data?.data));
       navigate("/");
     } catch (error) {
-      setError(error);
+      setError(error?.response?.data?.message);
     }
   };
 
@@ -50,7 +50,7 @@ const Login = () => {
             onChange={(e) => setPassword(e.target.value)}
           />
         </fieldset>
-        {error && <p className="text-red-600 mt-4">ERROR : {error}</p>}
+        {error && <p className="text-red-600 mt-4">{error}</p>}
         <button
           className="btn bg-white text-black w-full mt-4"
           onClick={handleLogin}
