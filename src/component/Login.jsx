@@ -1,16 +1,29 @@
 import axios from "axios";
 import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { addUser } from "../store/userSlice.js";
+import { useNavigate } from "react-router-dom";
+import { BASE_URL } from "../utils/constants.js";
 
 const Login = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [email, setEmail] = useState("harshit@gmail.com");
   const [password, setPassword] = useState("Harshit@23");
+  const [error, setError] = useState("");
 
   const handleLogin = async (params) => {
-    const res = await axios.post(
-      "http://localhost:7777/login",
-      { email, password },
-      { withCredentials: true }
-    );
+    try {
+      const res = await axios.post(
+        BASE_URL + "/login",
+        { email, password },
+        { withCredentials: true }
+      );
+      dispatch(addUser(res?.data?.data));
+      navigate("/");
+    } catch (error) {
+      setError(error);
+    }
   };
 
   return (
@@ -37,6 +50,7 @@ const Login = () => {
             onChange={(e) => setPassword(e.target.value)}
           />
         </fieldset>
+        {error && <p className="text-red-600 mt-4">ERROR : {error}</p>}
         <button
           className="btn bg-white text-black w-full mt-4"
           onClick={handleLogin}
