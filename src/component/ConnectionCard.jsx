@@ -6,7 +6,6 @@ const ConnectionCard = ({ connection }) => {
         <img className="size-16 rounded-box" src={photoUrl} />
       </div>
       <div className="ml-6">
-        <div></div>
         <div className="text-xl">{firstName + " " + lastName}</div>
         {age && gender && (
           <div className="text-xs uppercase font-semibold opacity-60">
