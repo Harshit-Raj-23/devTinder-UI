@@ -1,9 +1,10 @@
 import React from "react";
+import EditProfile from "./EditProfile.jsx";
 
 const Profile = () => {
   return (
     <div>
-      <h1>Profile page</h1>
+      <EditProfile />
     </div>
   );
 };
