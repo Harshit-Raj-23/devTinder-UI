@@ -16,7 +16,7 @@ const RequestCard = ({ request }) => {
       {},
       { withCredentials: true }
     );
-    dispatch(removeRequests(request));
+    dispatch(removeRequests(requestId));
   };
 
   return (
