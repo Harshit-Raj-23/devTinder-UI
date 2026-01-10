@@ -18,6 +18,7 @@ const EditProfile = () => {
   const [showToast, setShowToast] = useState(false);
 
   const saveProfile = async () => {
+    setError("");
     try {
       const res = await axios.patch(
         BASE_URL + "/profile/edit",
@@ -30,7 +31,6 @@ const EditProfile = () => {
         setShowToast(false);
       }, 3000);
     } catch (error) {
-      console.log(error);
       setError(error.message);
     }
   };

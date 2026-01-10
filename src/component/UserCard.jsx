@@ -33,7 +33,7 @@ const UserCard = ({ user }) => {
           <div className="card-actions justify-center">
             <button
               className="btn btn-primary"
-              onClick={() => handleSendRequest("ignore", user._id)}
+              onClick={() => handleSendRequest("ignored", user._id)}
             >
               Ignore
             </button>
