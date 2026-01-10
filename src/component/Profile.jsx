@@ -1,12 +1,10 @@
 import React from "react";
 import EditProfile from "./EditProfile.jsx";
+import { useSelector } from "react-redux";
 
 const Profile = () => {
-  return (
-    <div>
-      <EditProfile />
-    </div>
-  );
+  const user = useSelector((store) => store.user);
+  return <div>{user && <EditProfile />}</div>;
 };
 
 export default Profile;
