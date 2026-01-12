@@ -11,12 +11,16 @@ const RequestCard = ({ request }) => {
     request.fromUserId;
 
   const reviewRequest = async (status, requestId) => {
-    const res = await axios.post(
-      BASE_URL + "/request/review/" + status + "/" + requestId,
-      {},
-      { withCredentials: true }
-    );
-    dispatch(removeRequests(requestId));
+    try {
+      const res = await axios.post(
+        BASE_URL + "/request/review/" + status + "/" + requestId,
+        {},
+        { withCredentials: true }
+      );
+      dispatch(removeRequests(requestId));
+    } catch (error) {
+      console.error(error.message);
+    }
   };
 
   return (

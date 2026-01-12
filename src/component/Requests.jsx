@@ -10,10 +10,14 @@ const Requests = () => {
   const dispatch = useDispatch();
 
   const getRequests = async () => {
-    const res = await axios.get(BASE_URL + "/user/requests/received", {
-      withCredentials: true,
-    });
-    dispatch(addRequests(res?.data?.data));
+    try {
+      const res = await axios.get(BASE_URL + "/user/requests/received", {
+        withCredentials: true,
+      });
+      dispatch(addRequests(res?.data?.data));
+    } catch (error) {
+      console.error(error.message);
+    }
   };
 
   useEffect(() => {

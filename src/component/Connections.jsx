@@ -10,10 +10,14 @@ const Connections = () => {
   const connections = useSelector((store) => store.connections);
 
   const getConnections = async () => {
-    const res = await axios.get(BASE_URL + "/user/connections", {
-      withCredentials: true,
-    });
-    dispatch(addConnections(res?.data?.data));
+    try {
+      const res = await axios.get(BASE_URL + "/user/connections", {
+        withCredentials: true,
+      });
+      dispatch(addConnections(res?.data?.data));
+    } catch (error) {
+      console.error(error.message);
+    }
   };
 
   useEffect(() => {

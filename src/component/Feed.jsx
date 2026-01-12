@@ -10,11 +10,15 @@ const Feed = () => {
   const feed = useSelector((store) => store.feed);
 
   const getFeed = async () => {
-    if (feed) return;
-    const res = await axios.get(BASE_URL + "/user/feed", {
-      withCredentials: true,
-    });
-    dispatch(addFeed(res?.data?.data));
+    try {
+      if (feed) return;
+      const res = await axios.get(BASE_URL + "/user/feed", {
+        withCredentials: true,
+      });
+      dispatch(addFeed(res?.data?.data));
+    } catch (error) {
+      console.error(error.message);
+    }
   };
 
   useEffect(() => {
