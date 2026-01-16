@@ -31,7 +31,7 @@ const Requests = () => {
 
   return (
     requests && (
-      <div className="flex justify-center mt-10">
+      <div className="flex justify-center mt-10 h-[70vh]">
         <ul className="list bg-neutral rounded-box shadow-md w-[30%]">
           <li className="p-2 pb-2 text-2xl text-center">Requests Received</li>
           {requests.map((request) => (

@@ -44,7 +44,7 @@ const Login = () => {
   };
 
   return (
-    <div className="flex justify-center items-center pt-16">
+    <div className="flex justify-center items-center pt-16 h-[74vh]">
       <div className="bg-neutral w-[25%] rounded-xl p-8">
         <h1 className="text-2xl font-bold text-center">
           {isLoginForm ? "Login" : "Sign Up"}
