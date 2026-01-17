@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { createSocketConnection } from "../utils/socket.js";
 import { useSelector } from "react-redux";
+import axios from "axios";
+import { BASE_URL } from "../utils/constants.js";
 
 const Chat = () => {
   const { targetUserId } = useParams();
@@ -9,6 +11,30 @@ const Chat = () => {
   const userId = user?._id;
   const [newMessage, SetNewMessage] = useState("");
   const [messages, setMessages] = useState([]);
+
+  const fetchChatMessages = async () => {
+    const chat = await axios.get(BASE_URL + "/chat/" + targetUserId, {
+      withCredentials: true,
+    });
+
+    console.log(chat?.data?.messages);
+
+    const chatMessages = chat?.data?.messages.map((message) => {
+      const { senderId, text } = message;
+      return {
+        firstName: senderId.firstName,
+        lastName: senderId.lastName,
+        photoUrl: senderId.photoUrl,
+        text,
+      };
+    });
+
+    setMessages(chatMessages);
+  };
+
+  useEffect(() => {
+    fetchChatMessages();
+  }, []);
 
   useEffect(() => {
     if (!userId) return;
@@ -35,6 +61,8 @@ const Chat = () => {
 
     socket.emit("sendMessage", {
       firstName: user.firstName,
+      lastName: user.lastName,
+      photoUrl: user.photoUrl,
       userId,
       targetUserId,
       text: newMessage,
@@ -62,12 +90,12 @@ const Chat = () => {
                 <div className="w-10 rounded-full">
                   <img
                     alt="Tailwind CSS chat bubble component"
-                    src="https://img.daisyui.com/images/profile/demo/kenobee@192.webp"
+                    src={message?.photoUrl}
                   />
                 </div>
               </div>
               <div className="chat-header">
-                {message.firstName}
+                {`${message?.firstName} ${message?.lastName}`}
                 <time className="text-xs opacity-50">12:45</time>
               </div>
               <div className="chat-bubble">{message.text}</div>
